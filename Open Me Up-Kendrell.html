@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Valentine for Kendrell</title>
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Segoe UI", sans-serif;
+        overflow: hidden;
+      }
+
+      /* Envelope */
+      .envelope {
+        width: 260px;
+        height: 180px;
+        background: #fff;
+        position: relative;
+        cursor: pointer;
+        border-radius: 6px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s;
+      }
+
+      .envelope:hover {
+        transform: scale(1.05);
+      }
+
+      .flap {
+        position: absolute;
+        top: 0;
+        width: 0;
+        height: 0;
+        border-left: 130px solid transparent;
+        border-right: 130px solid transparent;
+        border-top: 90px solid #ff6f91;
+        transform-origin: top;
+        transition: transform 0.8s;
+        z-index: 3;
+      }
+
+      .letter {
+        position: absolute;
+        bottom: 10px;
+        left: 15px;
+        width: 230px;
+        height: 150px;
+        background: #fff;
+        border-radius: 5px;
+        padding: 15px;
+        box-sizing: border-box;
+        text-align: center;
+        transform: translateY(120px);
+        transition: transform 0.8s;
+        z-index: 2;
+      }
+
+      .open .flap {
+        transform: rotateX(180deg);
+      }
+
+      .open .letter {
+        transform: translateY(-40px);
+      }
+
+      /* Valentine Content */
+      .valentine {
+        display: none;
+        text-align: center;
+        color: #fff;
+        animation: fadeIn 1.5s ease forwards;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 1.2rem;
+      }
+
+      .buttons {
+        margin-top: 20px;
+        position: relative;
+      }
+
+      button {
+        padding: 12px 22px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        margin: 10px;
+      }
+
+      #yes {
+        background: #ff4d6d;
+        color: white;
+      }
+
+      #no {
+        background: #fff;
+        color: #ff4d6d;
+        position: absolute;
+      }
+
+      /* Balloons */
+      .balloon {
+        position: absolute;
+        bottom: -100px;
+        width: 40px;
+        height: 55px;
+        background: red;
+        border-radius: 50%;
+        animation: float 8s infinite;
+        opacity: 0.8;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(-120vh);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Envelope -->
+    <div class="envelope" id="envelope">
+      <div class="flap"></div>
+      <div class="letter">
+        <h3>💌 Kendrell</h3>
+        <p>Click to open</p>
+      </div>
+    </div>
+
+    <!-- Valentine Message -->
+    <div class="valentine" id="valentine">
+      <h1>Will You Be My Valentine, Kendrell? 💘</h1>
+      <p>You already know you’re stuck with me 😘</p>
+
+      <div class="buttons">
+        <button id="yes">Yes ❤️</button>
+        <button id="no">No 🙄</button>
+      </div>
+    </div>
+
+    <script>
+      const envelope = document.getElementById("envelope");
+      const valentine = document.getElementById("valentine");
+      const noBtn = document.getElementById("no");
+      const yesBtn = document.getElementById("yes");
+
+      envelope.addEventListener("click", () => {
+        envelope.classList.add("open");
+        setTimeout(() => {
+          envelope.style.display = "none";
+          valentine.style.display = "block";
+          createBalloons();
+        }, 900);
+      });
+
+      noBtn.addEventListener("mouseover", () => {
+        const x = Math.random() * 200 - 100;
+        const y = Math.random() * 100 - 50;
+        noBtn.style.transform = `translate(${x}px, ${y}px)`;
+        alert("Try again 😏");
+      });
+
+      yesBtn.addEventListener("click", () => {
+        valentine.innerHTML = `
+            <h1>I Love You 💖</h1>
+            <p>From your baby Z 💕</p>
+        `;
+        createBalloons();
+      });
+
+      function createBalloons() {
+        for (let i = 0; i < 20; i++) {
+          const balloon = document.createElement("div");
+          balloon.classList.add("balloon");
+          balloon.style.left = Math.random() * 100 + "vw";
+          balloon.style.background = `hsl(${Math.random() * 360}, 80%, 60%)`;
+          balloon.style.animationDuration = 5 + Math.random() * 5 + "s";
+          document.body.appendChild(balloon);
+        }
+      }
+    </script>
+  </body>
+</html>
